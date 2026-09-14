@@ -214,13 +214,18 @@ GitHub Pages is the only hosting service, deployed by
 `.github/workflows/pages.yml` using `actions/configure-pages`,
 `actions/upload-pages-artifact`, and `actions/deploy-pages`.
 
-One-time repository setup, done by a human in the GitHub web interface:
+The workflow deploys **only from the repository's default branch**, whatever it
+is named, using `if: github.ref_name == github.event.repository.default_branch`.
+Pushes to any other branch start the workflow and then skip every job, so a
+feature branch can never publish to the live site. The `github-pages`
+environment enforces the same restriction independently.
 
-1. **Settings → Pages → Build and deployment → Source:** select
-   **GitHub Actions**.
-2. Make sure the branch carrying this code is the repository's **default
-   branch**. The workflow only deploys from the default branch, and the
-   `github-pages` environment only accepts deployments from it.
+`configure-pages` runs with `enablement: true`, so the first successful run
+turns Pages on and sets its source to GitHub Actions by itself. No manual
+repository setup is needed. If that step ever fails with `Get Pages site
+failed`, the token was not allowed to enable Pages; a repository admin can do
+it by hand at **Settings → Pages → Build and deployment → Source →
+GitHub Actions**, and the next push will deploy.
 
 No custom domain is configured or assumed. The published URL is the generated
 GitHub Pages URL for this repository:

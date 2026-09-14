@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install HTML validator
         run: sudo apt-get update -qq && sudo apt-get install -y -qq tidy
@@ -47,6 +47,10 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          # Turn Pages on and set its source to GitHub Actions if it is not
+          # already configured, so the repository needs no manual setup.
+          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

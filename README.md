@@ -44,13 +44,11 @@ committing credentials.
 
 ## Deploying
 
-Deployment is automatic on every push to the repository's default branch. One
-piece of setup has to be done once by a human:
-
-**Settings → Pages → Build and deployment → Source → GitHub Actions**
-
-The workflow only deploys from the default branch, and it fails the build if
-internal notes or anything resembling a credential appear inside `site/`.
+Deployment is automatic on every push to the repository's default branch, and
+the workflow enables GitHub Pages itself on its first successful run. Pushes to
+any other branch skip every job, so a feature branch cannot publish to the live
+site. The build fails — and nothing is deployed — if validation fails or if
+internal notes appear inside `site/`.
 
 ## Status
 
