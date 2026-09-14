@@ -9,9 +9,10 @@ cookies. It is deployed with GitHub Pages.
 
 [![The Siddarth Thota Personal Alerts home page](docs/images/home.png)](https://kingcobra52.github.io/twillio_campaign/)
 
-<sub>Home page at 1280&nbsp;px, light mode. Rendered with Chromium from the
-`site/` directory at commit `044a8d9` — the same bytes the Pages workflow
-uploads — not captured from the live URL.</sub>
+<sub>Home page at 1280&nbsp;px, light mode. Rendered with Chromium from this
+repository's `site/` directory — the same bytes the Pages workflow uploads —
+not captured from the live URL. Git history records which commit the image was
+built from.</sub>
 
 ## Public pages
 

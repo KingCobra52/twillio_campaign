@@ -17,7 +17,11 @@
   --focus: #b8510a;
   --code-bg: #eef1f4;
 
-  --measure: 68ch;
+  /* Absolute, not ch: `ch` resolves against each element's own font size, so a
+     heading and a paragraph would get different widths and their centred left
+     edges would not line up. 38rem is about 68 characters of body text. */
+  --measure: 38rem;
+  --measure-wide: 52rem;
   --radius: 8px;
   --space: 1rem;
 }
@@ -102,6 +106,14 @@ summary:focus-visible,
   background: var(--bg-subtle);
 }
 
+/* Header and footer share the content's centre axis: capped at the wide
+   measure plus the wrapper's own padding, so their inner edge lands exactly
+   where the card grid and tables begin. */
+.site-header .wrap,
+.site-footer .wrap {
+  max-width: calc(var(--measure-wide) + 2.5rem);
+}
+
 .site-header .wrap {
   display: flex;
   flex-wrap: wrap;
@@ -157,14 +169,19 @@ main {
   padding-block: 2.5rem 3rem;
 }
 
+/* Body copy sits in a centred measure rather than hugging the left edge of
+   the wrapper, so the page is symmetric at desktop widths. */
 main .wrap > * {
   max-width: var(--measure);
+  margin-inline: auto;
 }
 
+/* Elements that need more room than the measure step out evenly on both
+   sides, staying centred on the same axis as the text. */
 main .wrap > .full,
 main .wrap > .table-scroll,
 main .wrap > .card-grid {
-  max-width: none;
+  max-width: var(--measure-wide);
 }
 
 /* ---------- Typography ---------- */

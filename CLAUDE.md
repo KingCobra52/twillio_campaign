@@ -144,6 +144,13 @@ add an arbitration clause without an explicit instruction to do so.
     file.
 - **Real directories with `index.html`**, so `/privacy/` works on direct
   navigation and refresh without any client-side routing.
+- **One centred spine.** Body copy sits in `--measure` (38rem), centred.
+  Elements that need more room — the card grid, tables, anything marked
+  `.full` — use `--measure-wide` (52rem), and the header and footer are capped
+  to the same width, so every wide element shares one left edge.
+  - Keep both measures in **absolute units, never `ch`**. `ch` resolves against
+    each element's own font size, so a heading and a paragraph get different
+    widths; centred, their left edges then fail to line up.
 - **No framework, no analytics, no cookies, no storage, no third-party
   requests.** Everything the browser loads is served from this repository.
 - Every page must work with JavaScript disabled.
@@ -221,7 +228,6 @@ const { chromium } = require("playwright");
 })();'
 ```
 
-Update the commit hash in the README caption when the screenshot is replaced.
 The caption must keep saying how the image was produced: claiming a render is
 a capture of the live site would be a small untruth in a repository whose whole
 point is that its claims are checkable.
