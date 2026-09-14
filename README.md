@@ -44,11 +44,19 @@ committing credentials.
 
 ## Deploying
 
-Deployment is automatic on every push to the repository's default branch, and
-the workflow enables GitHub Pages itself on its first successful run. Pushes to
-any other branch skip every job, so a feature branch cannot publish to the live
-site. The build fails — and nothing is deployed — if validation fails or if
-internal notes appear inside `site/`.
+**One-time setup, required before the first deployment.** A repository admin
+must turn Pages on:
+
+**Settings → Pages → Build and deployment → Source → GitHub Actions**
+
+The workflow cannot do this itself; its token is not permitted to create a
+Pages site. Until the setting is on, every run fails at *Configure GitHub
+Pages*.
+
+After that, deployment is automatic on every push to the repository's default
+branch. Pushes to any other branch skip every job, so a feature branch cannot
+publish to the live site. The build fails — and nothing is deployed — if
+validation fails or if internal notes appear inside `site/`.
 
 ## Status
 

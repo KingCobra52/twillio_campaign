@@ -46,11 +46,10 @@ jobs:
         run: ./tools/check-site.sh
 
       - name: Configure GitHub Pages
+        # Requires Pages to be enabled for the repository with its source set
+        # to "GitHub Actions" (Settings -> Pages). The workflow's GITHUB_TOKEN
+        # cannot enable it; a repository admin does that once, by hand.
         uses: actions/configure-pages@v5
-        with:
-          # Turn Pages on and set its source to GitHub Actions if it is not
-          # already configured, so the repository needs no manual setup.
-          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

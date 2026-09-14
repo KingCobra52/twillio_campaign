@@ -220,12 +220,22 @@ Pushes to any other branch start the workflow and then skip every job, so a
 feature branch can never publish to the live site. The `github-pages`
 environment enforces the same restriction independently.
 
-`configure-pages` runs with `enablement: true`, so the first successful run
-turns Pages on and sets its source to GitHub Actions by itself. No manual
-repository setup is needed. If that step ever fails with `Get Pages site
-failed`, the token was not allowed to enable Pages; a repository admin can do
-it by hand at **Settings → Pages → Build and deployment → Source →
-GitHub Actions**, and the next push will deploy.
+### One-time setup, required before the first deployment
+
+A repository admin must enable Pages by hand:
+
+**Settings → Pages → Build and deployment → Source → GitHub Actions**
+
+The workflow cannot do this itself. `actions/configure-pages` was tried with
+`enablement: true` and the run failed with `Create Pages site failed. Error:
+Resource not accessible by integration` — the workflow's `GITHUB_TOKEN` is not
+permitted to create a Pages site, whatever `permissions:` the workflow
+requests. Until an admin flips that setting, every run fails at the
+**Configure GitHub Pages** step with `Get Pages site failed`, and nothing is
+deployed.
+
+Once the setting is on, the next push to the default branch deploys, and no
+further manual steps are needed.
 
 No custom domain is configured or assumed. The published URL is the generated
 GitHub Pages URL for this repository:
