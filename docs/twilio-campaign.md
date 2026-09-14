@@ -117,7 +117,16 @@ Siddarth Thota Personal Alerts: Reminder - the electric bill is due this Friday.
 ## 6. URLs required by the form
 
 GitHub Pages publishes this repository at a generated URL of the form
-`https://<owner>.github.io/<repo>/`.
+`https://<owner>.github.io/<repo>/`. For this repository that is expected to
+be:
+
+```
+https://kingcobra52.github.io/twillio_campaign/
+```
+
+**That URL is expected, not confirmed.** As of the last commit, Pages had not
+yet been enabled for the repository, so nothing has been served from it. Treat
+the URL as unverified until it has actually been loaded.
 
 **Fill these in from the live site, after the first successful deployment and
 after loading each URL signed out in a private window.** Do not enter a URL
