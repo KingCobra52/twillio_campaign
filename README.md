@@ -7,6 +7,12 @@ program operated by Siddarth Thota in Pennsylvania, United States.
 The site has no backend, no build step, no framework, no analytics, and no
 cookies. It is deployed with GitHub Pages.
 
+[![The Siddarth Thota Personal Alerts home page](docs/images/home.png)](https://kingcobra52.github.io/twillio_campaign/)
+
+<sub>Home page at 1280&nbsp;px, light mode. Rendered with Chromium from the
+`site/` directory at commit `044a8d9` — the same bytes the Pages workflow
+uploads — not captured from the live URL.</sub>
+
 ## Public pages
 
 | Route | Purpose |
@@ -19,7 +25,7 @@ cookies. It is deployed with GitHub Pages.
 ## Repository layout
 
 - `site/` — the only directory that is deployed
-- `docs/` — internal notes; **not** published
+- `docs/` — internal notes and README images; **not** published
 - `tools/` — validation scripts; **not** published
 - `CLAUDE.md` — service facts, compliance rules, and validation steps; **not** published
 - `.github/workflows/pages.yml` — GitHub Actions Pages deployment

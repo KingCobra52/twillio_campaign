@@ -113,7 +113,8 @@ add an arbitration clause without an explicit instruction to do so.
 ├── docs/                     # Internal notes. NEVER published.
 │   ├── consent-workflow-design.md
 │   ├── message-templates.md
-│   └── twilio-campaign.md
+│   ├── twilio-campaign.md
+│   └── images/               # README screenshots only
 ├── tools/                    # Validation scripts. Not published.
 │   ├── check-site.sh         # Runs every automated check
 │   ├── check-links.py        # Internal links and anchors
@@ -199,6 +200,31 @@ python3 -m http.server 8000 --directory /tmp/pages
 - Read `/sms/`, the Privacy Policy, the Terms of Service, and
   `docs/twilio-campaign.md` side by side. The automated check catches wording
   drift; only a person catches a claim that is merely untrue.
+
+### Regenerating the README screenshot
+
+`docs/images/home.png` is rendered from the local `site/` directory, not
+fetched from the live URL — those are the same bytes, since the workflow
+uploads `./site` unchanged. Serve the site under its subpath, then capture it:
+
+```bash
+mkdir -p /tmp/shot && cp -r site /tmp/shot/twillio_campaign
+python3 -m http.server 8742 --bind 127.0.0.1 --directory /tmp/shot &
+NODE_PATH=/opt/node22/lib/node_modules node -e '
+const { chromium } = require("playwright");
+(async () => {
+  const b = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p = await b.newPage({ viewport: { width: 1280, height: 820 }, deviceScaleFactor: 2, colorScheme: "light" });
+  await p.goto("http://127.0.0.1:8742/twillio_campaign/", { waitUntil: "networkidle" });
+  await p.screenshot({ path: "docs/images/home.png" });
+  await b.close();
+})();'
+```
+
+Update the commit hash in the README caption when the screenshot is replaced.
+The caption must keep saying how the image was produced: claiming a render is
+a capture of the live site would be a small untruth in a repository whose whole
+point is that its claims are checkable.
 
 ### After deploying
 
