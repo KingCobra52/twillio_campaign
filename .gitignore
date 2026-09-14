@@ -1,0 +1,21 @@
+# Credentials and local environment — never commit these.
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.*
+
+# Local artifacts
+node_modules/
+.cache/
+dist/
+build/
+_site/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

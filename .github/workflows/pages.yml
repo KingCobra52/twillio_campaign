@@ -1,0 +1,69 @@
+name: Deploy compliance site to GitHub Pages
+
+# Deploys only from the repository's default branch, whatever it is named.
+# Pushes to any other branch start the workflow and then skip every job, so
+# feature branches never publish to the live site.
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-flight deployment finish; queue at most one more behind it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site artifact
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install HTML validator
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tidy
+
+      - name: Guard against publishing internal notes
+        run: |
+          set -euo pipefail
+          # Only ./site is uploaded. Fail loudly if anything that must stay
+          # private has landed inside it.
+          if [ -d site/docs ] || [ -d site/tools ] || [ -f site/CLAUDE.md ]; then
+            echo "::error::Internal files found inside site/. They must not be published."
+            exit 1
+          fi
+          echo "No internal files found in site/."
+
+      - name: Validate site
+        # Markup, link integrity, credential scan, placeholder scan, and
+        # cross-document consistency. A failure here blocks the deployment.
+        run: ./tools/check-site.sh
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Publish the static site directory only. Everything outside it -
+          # CLAUDE.md, docs/, and workflow files - stays unpublished.
+          path: ./site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
