@@ -65,17 +65,19 @@ or any phone number into this file. It is a copy deck, not a credential store.
 > program's consent record.
 >
 > There is no web form, no keyword opt-in campaign, no point-of-sale opt-in,
-> and no third-party list. The program's public website
-> (<PAGES_URL>) publishes the program disclosures only; it does
-> not collect mobile numbers and contains no signup form of any kind. No person
-> other than the operator is enrolled, and no message is sent to any number
-> that has not been manually enrolled by the operator.
+> and no third-party list. The program's public website,
+> https://kingcobra52.github.io/twillio_campaign/, publishes the program
+> disclosures only; it does not collect mobile numbers and contains no signup
+> form of any kind. No person other than the operator is enrolled, and no
+> message is sent to any number that has not been manually enrolled by the
+> operator.
 >
-> The disclosures shown at enrollment, and published on
-> <PAGES_URL>sms/, state the program name, the operator, the
-> purpose of the messages, that message frequency varies, that message and data
-> rates may apply, the support contact, and the STOP, START, and HELP keywords,
-> and they link to the Privacy Policy and the Terms of Service.
+> The disclosures shown at enrollment, and published at
+> https://kingcobra52.github.io/twillio_campaign/sms/, state the program name,
+> the operator, the purpose of the messages, that message frequency varies,
+> that message and data rates may apply, the support contact, and the STOP,
+> START, and HELP keywords, and they link to the Privacy Policy and the Terms
+> of Service.
 >
 > On enrollment the recipient receives a single confirmation message:
 > "Siddarth Thota Personal Alerts: You are now subscribed to personal reminder
@@ -116,33 +118,33 @@ Siddarth Thota Personal Alerts: Reminder - the electric bill is due this Friday.
 
 ## 6. URLs required by the form
 
-GitHub Pages publishes this repository at a generated URL of the form
-`https://<owner>.github.io/<repo>/`. For this repository that is expected to
-be:
+GitHub Pages publishes this repository at:
 
 ```
 https://kingcobra52.github.io/twillio_campaign/
 ```
 
-**That URL is expected, not confirmed.** As of the last commit, Pages had not
-yet been enabled for the repository, so nothing has been served from it. Treat
-the URL as unverified until it has actually been loaded.
+No custom domain is configured.
 
-**Fill these in from the live site, after the first successful deployment and
-after loading each URL signed out in a private window.** Do not enter a URL
-into the Twilio form that has not been confirmed to return 200 while signed
-out.
+**Deployment status.** Pages is enabled with its source set to GitHub Actions,
+and the workflow has deployed successfully — `actions/deploy-pages` reported
+`Reported success!` and resolved the environment URL to the address above.
+
+**The pages have not been loaded in a browser.** The environment these
+documents were written in cannot reach `github.io`, so every URL below is
+confirmed as *deployed*, not as *fetched*. Open each one signed out, in a
+private window, on a phone and on a desktop, and confirm it returns the right
+page before entering it on the Twilio form.
 
 | Form field | URL |
 | --- | --- |
-| Privacy Policy URL | `<PAGES_URL>privacy/` — **confirm before use** |
-| Terms of Service URL | `<PAGES_URL>terms/` — **confirm before use** |
-| SMS program disclosure | `<PAGES_URL>sms/` — **confirm before use** |
-| Website | `<PAGES_URL>` — **confirm before use** |
+| Privacy Policy URL | `https://kingcobra52.github.io/twillio_campaign/privacy/` |
+| Terms of Service URL | `https://kingcobra52.github.io/twillio_campaign/terms/` |
+| SMS program disclosure | `https://kingcobra52.github.io/twillio_campaign/sms/` |
+| Website | `https://kingcobra52.github.io/twillio_campaign/` |
 
-Replace `<PAGES_URL>` above and in section 3 with the confirmed base URL before
-submitting. Leaving the placeholder in a submission would be a false statement
-on a compliance form.
+Open each one in a browser before entering it on the form. A URL that has been
+deployed but never loaded is not yet a URL you can attest to.
 
 ---
 
@@ -177,7 +179,7 @@ consent record is worse than a rejected campaign.
 ### Pre-submission checklist
 
 - [ ] Live site deployed and all four routes return 200 signed out
-- [ ] `<PAGES_URL>` replaced with the confirmed base URL in sections 3 and 6
+- [ ] Every URL in sections 3 and 6 opened in a browser and confirmed correct
 - [ ] Privacy Policy URL loaded and confirmed public
 - [ ] Terms of Service URL loaded and confirmed public
 - [ ] `/sms/` disclosure loaded and confirmed public

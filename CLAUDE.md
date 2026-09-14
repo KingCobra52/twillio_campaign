@@ -220,32 +220,29 @@ Pushes to any other branch start the workflow and then skip every job, so a
 feature branch can never publish to the live site. The `github-pages`
 environment enforces the same restriction independently.
 
-### One-time setup, required before the first deployment
+### Repository setup (already done)
 
-A repository admin must enable Pages by hand:
+Pages is enabled for this repository with its source set to **GitHub Actions**
+(Settings → Pages → Build and deployment). That setting had to be switched on
+by hand: the workflow's `GITHUB_TOKEN` cannot create a Pages site, so
+`actions/configure-pages` with `enablement: true` fails with `Create Pages site
+failed. Error: Resource not accessible by integration`. Do not re-add that
+option.
 
-**Settings → Pages → Build and deployment → Source → GitHub Actions**
+If the **Configure GitHub Pages** step ever starts failing with `Get Pages site
+failed`, the setting has been turned off. Turn it back on; nothing in the
+repository needs to change.
 
-The workflow cannot do this itself. `actions/configure-pages` was tried with
-`enablement: true` and the run failed with `Create Pages site failed. Error:
-Resource not accessible by integration` — the workflow's `GITHUB_TOKEN` is not
-permitted to create a Pages site, whatever `permissions:` the workflow
-requests. Until an admin flips that setting, every run fails at the
-**Configure GitHub Pages** step with `Get Pages site failed`, and nothing is
-deployed.
+### Published URLs
 
-Once the setting is on, the next push to the default branch deploys, and no
-further manual steps are needed.
+No custom domain is configured. The site is live at:
 
-No custom domain is configured or assumed. The published URL is the generated
-GitHub Pages URL for this repository:
-
-- Home: `https://<owner>.github.io/<repo>/`
-- SMS disclosure: `https://<owner>.github.io/<repo>/sms/`
-- Privacy Policy: `https://<owner>.github.io/<repo>/privacy/`
-- Terms of Service: `https://<owner>.github.io/<repo>/terms/`
+- Home: `https://kingcobra52.github.io/twillio_campaign/`
+- SMS disclosure: `https://kingcobra52.github.io/twillio_campaign/sms/`
+- Privacy Policy: `https://kingcobra52.github.io/twillio_campaign/privacy/`
+- Terms of Service: `https://kingcobra52.github.io/twillio_campaign/terms/`
 
 The Privacy Policy and Terms of Service URLs are the two outputs the Twilio
-campaign registration form needs. Record them in `docs/twilio-campaign.md`
-once the first deployment has succeeded and the URLs have been loaded and
-confirmed.
+campaign registration form needs. They are recorded in
+`docs/twilio-campaign.md`. Renaming the repository changes all four URLs and
+also requires updating the absolute links in `site/404.html`.

@@ -44,17 +44,13 @@ committing credentials.
 
 ## Deploying
 
-**One-time setup, required before the first deployment.** A repository admin
-must turn Pages on:
+The site is live at
+**https://kingcobra52.github.io/twillio_campaign/**.
 
-**Settings → Pages → Build and deployment → Source → GitHub Actions**
-
-The workflow cannot do this itself; its token is not permitted to create a
-Pages site. Until the setting is on, every run fails at *Configure GitHub
-Pages*.
-
-After that, deployment is automatic on every push to the repository's default
-branch. Pushes to any other branch skip every job, so a feature branch cannot
+Pages is enabled with its source set to GitHub Actions; that setting was turned
+on by hand and the workflow cannot manage it (its token is not permitted to
+create a Pages site). Deployment is automatic on every push to the repository's
+default branch. Pushes to any other branch skip every job, so a feature branch cannot
 publish to the live site. The build fails — and nothing is deployed — if
 validation fails or if internal notes appear inside `site/`.
 
